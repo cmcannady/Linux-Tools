@@ -19,7 +19,7 @@
 		<SANSID></SANSID>
 		<MIMEField>
 			<Name>x-fixlet-modification-time</Name>
-			<Value>Fri, 25 Sep 2020 17:51:07 +0000</Value>
+			<Value>Tue, 03 Nov 2020 21:11:15 +0000</Value>
 		</MIMEField>
 		<Domain>BESC</Domain>
 		<Action ID="Action1">
@@ -33,11 +33,15 @@
 // *** Author        :: Casey Cannady (casey.cannady@hcl.com)                      ***
 // *** Company       :: HCL Software - BigFix Professional Services                ***
 // *** Date Created  :: 09/25/2020                                                 ***
-// *** Date Modified :: 09/25/2020                                                 ***
+// *** Date Modified :: 11/01/2020                                                 ***
 // *** *************************************************************************** ***
 
 // Execute APT dist-upgrade and autoremove
-wait sudo su - root -c "apt-get update --fix-missing; apt-get dist-upgrade -y --fix-missing; apt-get autoremove;"</ActionScript>
+wait sudo su - root -c "apt-get update --fix-missing; apt-get dist-upgrade -y --fix-missing; apt-get autoremove;"
+parameter "__ExitCode01" = "{if exist exit code of action then exit code of action as string else "999"}"
+if {parameter "__ExitCode01" != "0"}
+	exit {parameter "__ExitCode01"}
+endif</ActionScript>
 			<SuccessCriteria Option="CustomRelevance">exit code of action != 0</SuccessCriteria>
 		</Action>
 	</Task>
