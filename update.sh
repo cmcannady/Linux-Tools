@@ -51,10 +51,10 @@ version_compare() {
 # Let's get started!
 #
 echo " "
-echo "[*** STARTING | update_os.sh | `date` ***]"
+echo "[*** STARTING | update.sh | `date` ***]"
 
 #
-# Run all APT commands for system updates
+# Run all APT commands for system updates.
 #
 echo " "
 echo "Executing all APT update commands"
@@ -66,7 +66,7 @@ apt-get clean
 apt-get autoremove
 
 #
-# Update all SNAP installs
+# Update all SNAP installs.
 #
 echo " "
 echo "Updating all SNAPs"
@@ -74,7 +74,7 @@ killall snap-store
 snap refresh
 
 #
-# Ask user aabout updating the installed ollama version.
+# Update ollama version to latest IF its installed.
 #
 INSTALLED_VERSION=$(get_installed_version)
 LATEST_VERSION=$(get_latest_version)
@@ -89,7 +89,7 @@ else
 fi
 
 #
-# Ask user aabout updating the installed local models.
+# Update local models IF ollama is installed.
 #
 if [ "$INSTALLED_VERSION" != "not_installed" ]; then
     ollama list | tail -n +2 | awk '{print $1}' | xargs -I {} ollama pull {};
@@ -110,6 +110,6 @@ fi
 # We're done!
 #
 echo " "
-echo "[*** FINISHED | update_os.sh | `date` ***]"
+echo "[*** FINISHED | update.sh | `date` ***]"
 echo " "
 exit
